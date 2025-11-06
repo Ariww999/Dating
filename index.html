@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Perfect Date - Interactive Romance</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Main Selection Screen -->
+    <div id="selection-screen" class="screen active">
+        <div class="container">
+            <h1 class="main-title">Choose Your Perfect Date</h1>
+            <p class="subtitle">Three amazing guys are waiting to meet you...</p>
+
+            <div class="guys-grid">
+                <!-- Guy 1: Cute & Muscular -->
+                <div class="guy-card" data-guy="1">
+                    <div class="guy-image guy1-img">
+                        <div class="guy-overlay">
+                            <div class="guy-traits">
+                                <span class="trait">💪 Muscular</span>
+                                <span class="trait">😊 Cute</span>
+                                <span class="trait">☕ Cafe Lover</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="guy-info">
+                        <h2 class="guy-name">Hiro</h2>
+                        <p class="guy-description">Gentle soul with a surprisingly strong physique. Loves deep conversations over coffee.</p>
+                        <button class="choose-btn" onclick="chooseGuy(1)">
+                            <span>Choose Hiro</span>
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Guy 2: Sporty & Tanned -->
+                <div class="guy-card" data-guy="2">
+                    <div class="guy-image guy2-img">
+                        <div class="guy-overlay">
+                            <div class="guy-traits">
+                                <span class="trait">🏐 Athletic</span>
+                                <span class="trait">☀️ Tanned</span>
+                                <span class="trait">🏖️ Beach Enthusiast</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="guy-info">
+                        <h2 class="guy-name">Jin</h2>
+                        <p class="guy-description">Energetic and outdoorsy. His smile is as bright as the summer sun.</p>
+                        <button class="choose-btn" onclick="chooseGuy(2)">
+                            <span>Choose Jin</span>
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Guy 3: Gamer with Glasses -->
+                <div class="guy-card" data-guy="3">
+                    <div class="guy-image guy3-img">
+                        <div class="guy-overlay">
+                            <div class="guy-traits">
+                                <span class="trait">🎮 Gamer</span>
+                                <span class="trait">👓 Intellectual</span>
+                                <span class="trait">🖥️ Tech Savvy</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="guy-info">
+                        <h2 class="guy-name">Kai</h2>
+                        <p class="guy-description">Sweet and nerdy. Gets shy easily but has a heart of gold.</p>
+                        <button class="choose-btn" onclick="chooseGuy(3)">
+                            <span>Choose Kai</span>
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Date Screen - Guy 1: Aesthetic Cafe -->
+    <div id="date-screen-1" class="screen date-screen">
+        <div class="date-background cafe-bg">
+            <div class="date-content">
+                <div class="date-scene">
+                    <div class="guy-portrait guy1-portrait">
+                        <div class="speech-bubble">
+                            <p>"I'm really glad you chose to come here with me. This place has the best ambiance in the city."</p>
+                            <p class="gentle-text">"You look beautiful today..."</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="date-actions">
+                    <h3 class="question">Do you like me?</h3>
+                    <div class="action-buttons">
+                        <button class="action-btn yes-btn" onclick="answerDate(1, true)">
+                            <span>❤️ Yes</span>
+                        </button>
+                        <button class="action-btn no-btn" onclick="answerDate(1, false)">
+                            <span>💔 No</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Date Screen - Guy 2: Beach Volleyball -->
+    <div id="date-screen-2" class="screen date-screen">
+        <div class="date-background beach-bg">
+            <div class="date-content">
+                <div class="date-scene">
+                    <div class="guy-portrait guy2-portrait">
+                        <div class="speech-bubble">
+                            <p>"That was an amazing game! You've got some serious skills!"</p>
+                            <p class="energetic-text">"I love your competitive spirit!"</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="date-actions">
+                    <h3 class="question">Do you like me?</h3>
+                    <div class="action-buttons">
+                        <button class="action-btn yes-btn" onclick="answerDate(2, true)">
+                            <span>❤️ Yes</span>
+                        </button>
+                        <button class="action-btn no-btn" onclick="answerDate(2, false)">
+                            <span>💔 No</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Date Screen - Guy 3: Internet Cafe Gaming -->
+    <div id="date-screen-3" class="screen date-screen">
+        <div class="date-background gaming-bg">
+            <div class="date-content">
+                <div class="date-scene">
+                    <div class="guy-portrait guy3-portrait">
+                        <div class="speech-bubble">
+                            <p>"W-wow, you're really good at this game..."</p>
+                            <p class="shy-text">"I haven't had this much fun in a while..."</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="date-actions">
+                    <h3 class="question">Do you like me?</h3>
+                    <div class="action-buttons">
+                        <button class="action-btn yes-btn" onclick="answerDate(3, true)">
+                            <span>❤️ Yes</span>
+                        </button>
+                        <button class="action-btn no-btn" onclick="answerDate(3, false)">
+                            <span>💔 No</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Result Screen - Guy 1: Yes -->
+    <div id="result-screen-1-yes" class="screen result-screen">
+        <div class="result-background cafe-result-bg">
+            <div class="result-content">
+                <div class="result-scene">
+                    <div class="result-portrait guy1-result">
+                        <div class="heart-effect">💕</div>
+                    </div>
+                    <div class="result-text">
+                        <h2 class="result-title">A Beautiful Connection</h2>
+                        <p class="result-description">Hiro gently takes your hand, his strong fingers intertwining with yours.</p>
+                        <p class="love-confession">"I love you..."</p>
+                        <p class="result-note">His voice is tender and sincere, his eyes full of warmth.</p>
+                    </div>
+                </div>
+                <button class="restart-btn" onclick="restart()">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <path d="M2.5 10C2.5 5.85786 5.85786 2.5 10 2.5C14.1421 2.5 17.5 5.85786 17.5 10C17.5 14.1421 14.1421 17.5 10 17.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M6 17L2 17L2 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span>Start Over</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Result Screen - Guy 2: Yes -->
+    <div id="result-screen-2-yes" class="screen result-screen">
+        <div class="result-background beach-result-bg">
+            <div class="result-content">
+                <div class="result-scene">
+                    <div class="result-portrait guy2-result">
+                        <div class="heart-effect">💕</div>
+                    </div>
+                    <div class="result-text">
+                        <h2 class="result-title">The Journey Home</h2>
+                        <p class="result-description">Jin's face lights up with joy. He offers his hand with a bright smile.</p>
+                        <p class="love-confession">"Let me walk you home..."</p>
+                        <p class="result-note">The sunset paints the sky as you walk together along the shore.</p>
+                    </div>
+                </div>
+                <button class="restart-btn" onclick="restart()">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <path d="M2.5 10C2.5 5.85786 5.85786 2.5 10 2.5C14.1421 2.5 17.5 5.85786 17.5 10C17.5 14.1421 14.1421 17.5 10 17.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M6 17L2 17L2 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span>Start Over</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Result Screen - Guy 3: Yes -->
+    <div id="result-screen-3-yes" class="screen result-screen">
+        <div class="result-background gaming-result-bg">
+            <div class="result-content">
+                <div class="result-scene">
+                    <div class="result-portrait guy3-result">
+                        <div class="heart-effect">💕</div>
+                    </div>
+                    <div class="result-text">
+                        <h2 class="result-title">A Shy Confession</h2>
+                        <p class="result-description">Kai's cheeks turn a deep shade of pink. He looks down, adjusting his glasses nervously.</p>
+                        <p class="love-confession">"R-really? I... I'm so happy..."</p>
+                        <p class="result-note">He gives you the sweetest, most bashful smile you've ever seen.</p>
+                    </div>
+                </div>
+                <button class="restart-btn" onclick="restart()">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <path d="M2.5 10C2.5 5.85786 5.85786 2.5 10 2.5C14.1421 2.5 17.5 5.85786 17.5 10C17.5 14.1421 14.1421 17.5 10 17.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M6 17L2 17L2 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span>Start Over</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Result Screen - No (Generic for all) -->
+    <div id="result-screen-no" class="screen result-screen">
+        <div class="result-background sad-bg">
+            <div class="result-content">
+                <div class="result-scene">
+                    <div class="result-text sad-result">
+                        <h2 class="result-title">Perhaps Not Meant To Be</h2>
+                        <p class="result-description">He looks disappointed but understanding.</p>
+                        <p class="love-confession">"I understand... Thank you for being honest."</p>
+                        <p class="result-note">Maybe someone else is waiting for you...</p>
+                    </div>
+                </div>
+                <button class="restart-btn" onclick="restart()">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <path d="M2.5 10C2.5 5.85786 5.85786 2.5 10 2.5C14.1421 2.5 17.5 5.85786 17.5 10C17.5 14.1421 14.1421 17.5 10 17.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M6 17L2 17L2 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span>Try Again</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
