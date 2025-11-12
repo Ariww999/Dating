@@ -5,6 +5,7 @@ let currentScreen = 'selection-screen';
 document.addEventListener('DOMContentLoaded', () => {
     showScreen('selection-screen');
     addAnimations();
+    createParticles();
 });
 
 // Show specific screen
@@ -234,6 +235,82 @@ if (!document.getElementById('float-style')) {
 
 // Initialize floating hearts
 createFloatingHearts();
+
+// Create ambient particles for selection screen
+function createParticles() {
+    const selectionScreen = document.getElementById('selection-screen');
+
+    // Create 30 floating particles
+    for (let i = 0; i < 30; i++) {
+        setTimeout(() => {
+            createParticle(selectionScreen);
+        }, i * 100);
+    }
+
+    // Keep creating particles periodically
+    setInterval(() => {
+        if (currentScreen === 'selection-screen') {
+            createParticle(selectionScreen);
+        }
+    }, 3000);
+}
+
+function createParticle(container) {
+    const particle = document.createElement('div');
+    const particles = ['✨', '💕', '💖', '⭐', '💫', '🌟'];
+    const randomParticle = particles[Math.floor(Math.random() * particles.length)];
+
+    particle.textContent = randomParticle;
+    particle.style.position = 'fixed';
+    particle.style.fontSize = Math.random() * 20 + 10 + 'px';
+    particle.style.left = Math.random() * 100 + '%';
+    particle.style.top = Math.random() * 100 + '%';
+    particle.style.opacity = '0';
+    particle.style.pointerEvents = 'none';
+    particle.style.zIndex = '1';
+    particle.style.animation = `particleFloat ${Math.random() * 5 + 5}s ease-in-out, particleFade ${Math.random() * 3 + 2}s ease-in-out`;
+
+    container.appendChild(particle);
+
+    setTimeout(() => {
+        particle.remove();
+    }, 8000);
+}
+
+// Add particle animation styles
+if (!document.getElementById('particle-style')) {
+    const style = document.createElement('style');
+    style.id = 'particle-style';
+    style.textContent = `
+        @keyframes particleFloat {
+            0% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+            25% {
+                transform: translate(20px, -30px) rotate(90deg);
+            }
+            50% {
+                transform: translate(-20px, -60px) rotate(180deg);
+            }
+            75% {
+                transform: translate(30px, -90px) rotate(270deg);
+            }
+            100% {
+                transform: translate(0, -120px) rotate(360deg);
+            }
+        }
+
+        @keyframes particleFade {
+            0%, 100% {
+                opacity: 0;
+            }
+            50% {
+                opacity: 0.8;
+            }
+        }
+    `;
+    document.head.appendChild(style);
+}
 
 // Add smooth scrolling
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {

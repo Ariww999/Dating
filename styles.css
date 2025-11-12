@@ -87,12 +87,34 @@ body {
 }
 
 .guy-card {
-    background: white;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
     border-radius: 24px;
     overflow: hidden;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3),
+                0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+                box-shadow 0.4s ease;
     animation: cardAppear 0.6s ease-out backwards;
+    position: relative;
+}
+
+.guy-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.5) 0%, transparent 50%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.guy-card:hover::before {
+    opacity: 1;
 }
 
 .guy-card:nth-child(1) {
@@ -133,6 +155,7 @@ body {
 .guy1-img {
     background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
     position: relative;
+    overflow: hidden;
 }
 
 .guy1-img::before {
@@ -143,12 +166,43 @@ body {
     left: 50%;
     transform: translate(-50%, -50%);
     opacity: 0.3;
+    animation: floatRotate 8s ease-in-out infinite;
+}
+
+.guy1-img::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
+    animation: shimmerMove 4s ease-in-out infinite;
+}
+
+@keyframes floatRotate {
+    0%, 100% {
+        transform: translate(-50%, -50%) rotate(0deg) scale(1);
+    }
+    50% {
+        transform: translate(-50%, -55%) rotate(5deg) scale(1.05);
+    }
+}
+
+@keyframes shimmerMove {
+    0%, 100% {
+        transform: translate(0, 0);
+    }
+    50% {
+        transform: translate(10%, 10%);
+    }
 }
 
 /* Guy 2: Sporty & Tanned */
 .guy2-img {
     background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
     position: relative;
+    overflow: hidden;
 }
 
 .guy2-img::before {
@@ -159,12 +213,46 @@ body {
     left: 50%;
     transform: translate(-50%, -50%);
     opacity: 0.3;
+    animation: energeticBounce 3s ease-in-out infinite;
+}
+
+.guy2-img::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.2) 50%, transparent 70%);
+    top: 0;
+    left: -100%;
+    animation: shine 3s ease-in-out infinite;
+}
+
+@keyframes energeticBounce {
+    0%, 100% {
+        transform: translate(-50%, -50%) scale(1);
+    }
+    25% {
+        transform: translate(-50%, -55%) scale(1.1);
+    }
+    75% {
+        transform: translate(-50%, -45%) scale(0.95);
+    }
+}
+
+@keyframes shine {
+    0% {
+        left: -100%;
+    }
+    50%, 100% {
+        left: 100%;
+    }
 }
 
 /* Guy 3: Gamer with Glasses */
 .guy3-img {
     background: linear-gradient(135deg, #30cfd0 0%, #330867 100%);
     position: relative;
+    overflow: hidden;
 }
 
 .guy3-img::before {
@@ -175,6 +263,42 @@ body {
     left: 50%;
     transform: translate(-50%, -50%);
     opacity: 0.3;
+    animation: gamingPulse 2s ease-in-out infinite;
+}
+
+.guy3-img::after {
+    content: '';
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(255, 255, 255, 0.05) 2px,
+        rgba(255, 255, 255, 0.05) 4px
+    );
+    animation: scanlines 8s linear infinite;
+}
+
+@keyframes gamingPulse {
+    0%, 100% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 0.3;
+    }
+    50% {
+        transform: translate(-50%, -50%) scale(1.05);
+        opacity: 0.4;
+    }
+}
+
+@keyframes scanlines {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(50%);
+    }
 }
 
 .guy-overlay {
@@ -242,8 +366,30 @@ body {
     align-items: center;
     justify-content: center;
     gap: 10px;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4),
+                0 0 0 1px rgba(255, 255, 255, 0.2) inset;
+    position: relative;
+    overflow: hidden;
+    z-index: 2;
+}
+
+.choose-btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.4) 0%, transparent 70%);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s ease, height 0.6s ease;
+    border-radius: 50%;
+}
+
+.choose-btn:hover::before {
+    width: 400px;
+    height: 400px;
 }
 
 .choose-btn:hover {
@@ -274,6 +420,7 @@ body {
 /* Cafe Background */
 .cafe-bg {
     background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+    position: relative;
 }
 
 .cafe-bg::before {
@@ -284,11 +431,36 @@ body {
     top: 20%;
     right: 10%;
     animation: float 6s ease-in-out infinite;
+    filter: blur(2px);
+}
+
+.cafe-bg::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background:
+        radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(252, 182, 159, 0.3) 0%, transparent 50%);
+    pointer-events: none;
+    animation: atmosphereShift 10s ease-in-out infinite;
+}
+
+@keyframes atmosphereShift {
+    0%, 100% {
+        opacity: 0.5;
+    }
+    50% {
+        opacity: 0.8;
+    }
 }
 
 /* Beach Background */
 .beach-bg {
     background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
+    position: relative;
 }
 
 .beach-bg::before {
@@ -299,11 +471,38 @@ body {
     top: 20%;
     left: 10%;
     animation: float 6s ease-in-out infinite;
+    filter: blur(2px);
+}
+
+.beach-bg::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background:
+        radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.4) 0%, transparent 40%),
+        radial-gradient(circle at 20% 80%, rgba(142, 197, 252, 0.3) 0%, transparent 50%);
+    pointer-events: none;
+    animation: waveShimmer 8s ease-in-out infinite;
+}
+
+@keyframes waveShimmer {
+    0%, 100% {
+        transform: translateX(0);
+        opacity: 0.6;
+    }
+    50% {
+        transform: translateX(20px);
+        opacity: 0.8;
+    }
 }
 
 /* Gaming Background */
 .gaming-bg {
     background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+    position: relative;
 }
 
 .gaming-bg::before {
@@ -314,6 +513,42 @@ body {
     top: 20%;
     right: 10%;
     animation: float 6s ease-in-out infinite;
+    filter: blur(2px);
+}
+
+.gaming-bg::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background:
+        repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 100px,
+            rgba(168, 237, 234, 0.1) 100px,
+            rgba(168, 237, 234, 0.1) 102px
+        ),
+        repeating-linear-gradient(
+            90deg,
+            transparent,
+            transparent 100px,
+            rgba(254, 214, 227, 0.1) 100px,
+            rgba(254, 214, 227, 0.1) 102px
+        );
+    pointer-events: none;
+    animation: gridPulse 4s ease-in-out infinite;
+}
+
+@keyframes gridPulse {
+    0%, 100% {
+        opacity: 0.3;
+    }
+    50% {
+        opacity: 0.6;
+    }
 }
 
 @keyframes float {
@@ -331,12 +566,43 @@ body {
 }
 
 .date-scene {
-    background: white;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
     border-radius: 24px;
     padding: 50px;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2),
+                0 0 0 1px rgba(255, 255, 255, 0.5) inset;
     margin-bottom: 40px;
     animation: scaleIn 0.6s ease-out;
+    position: relative;
+    z-index: 10;
+}
+
+.date-scene::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg,
+        rgba(255, 255, 255, 0.5),
+        rgba(255, 255, 255, 0.1),
+        rgba(255, 255, 255, 0.5)
+    );
+    border-radius: 24px;
+    z-index: -1;
+    opacity: 0.5;
+    animation: borderShine 3s ease-in-out infinite;
+}
+
+@keyframes borderShine {
+    0%, 100% {
+        opacity: 0.3;
+    }
+    50% {
+        opacity: 0.7;
+    }
 }
 
 @keyframes scaleIn {
@@ -393,7 +659,20 @@ body {
     padding: 30px;
     margin-top: 20px;
     position: relative;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1),
+                0 0 0 1px rgba(255, 255, 255, 0.5) inset;
+    animation: bubbleAppear 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes bubbleAppear {
+    0% {
+        opacity: 0;
+        transform: scale(0.8) translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
 }
 
 .speech-bubble::before {
@@ -472,9 +751,30 @@ body {
     font-size: 1.3rem;
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2),
+                0 0 0 1px rgba(255, 255, 255, 0.2) inset;
     min-width: 180px;
+    position: relative;
+    overflow: hidden;
+}
+
+.action-btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s ease, height 0.6s ease;
+}
+
+.action-btn:hover::before {
+    width: 300px;
+    height: 300px;
 }
 
 .yes-btn {
@@ -538,13 +838,42 @@ body {
 }
 
 .result-scene {
-    background: white;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
     border-radius: 24px;
     padding: 60px;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2),
+                0 0 0 1px rgba(255, 255, 255, 0.5) inset,
+                0 0 100px rgba(245, 87, 108, 0.3);
     text-align: center;
     margin-bottom: 30px;
     animation: resultAppear 0.8s ease-out;
+    position: relative;
+    overflow: hidden;
+}
+
+.result-scene::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg,
+        transparent,
+        rgba(255, 255, 255, 0.4),
+        transparent
+    );
+    animation: resultShine 2s ease-in-out 0.5s;
+}
+
+@keyframes resultShine {
+    0% {
+        left: -100%;
+    }
+    100% {
+        left: 100%;
+    }
 }
 
 @keyframes resultAppear {
