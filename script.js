@@ -1,198 +1,291 @@
-// Screen Management
-let currentScreen = 'selection-screen';
+// Game State
+let currentScene = 'scene-lemonade-stand';
+let cupsPurchased = 0;
 
 // Initialize the app
 document.addEventListener('DOMContentLoaded', () => {
-    showScreen('selection-screen');
-    addAnimations();
-    createParticles();
+    showScene('scene-lemonade-stand');
+    createConfettiParticles();
+    createSparkles();
 });
 
-// Show specific screen
-function showScreen(screenId) {
-    // Hide all screens
-    const screens = document.querySelectorAll('.screen');
-    screens.forEach(screen => {
-        screen.classList.remove('active');
+// Show specific scene with 3D transition
+function showScene(sceneId) {
+    // Hide all scenes
+    const scenes = document.querySelectorAll('.scene');
+    scenes.forEach(scene => {
+        scene.classList.remove('active');
     });
 
-    // Show the target screen
-    const targetScreen = document.getElementById(screenId);
-    if (targetScreen) {
+    // Show the target scene with animation
+    const targetScene = document.getElementById(sceneId);
+    if (targetScene) {
         setTimeout(() => {
-            targetScreen.classList.add('active');
-            currentScreen = screenId;
+            targetScene.classList.add('active');
+            currentScene = sceneId;
         }, 100);
     }
 }
 
-// Choose a guy and go to date
-function chooseGuy(guyNumber) {
-    // Add exit animation to current screen
-    const currentScreenElement = document.getElementById(currentScreen);
-    currentScreenElement.style.opacity = '0';
-    currentScreenElement.style.transform = 'scale(0.95)';
+// Handle cup selection
+function selectCups(amount) {
+    cupsPurchased = amount;
 
-    // Transition to date screen
+    // Add visual feedback
+    const currentSceneElement = document.getElementById(currentScene);
+    currentSceneElement.style.opacity = '0';
+    currentSceneElement.style.transform = 'translateZ(-300px) rotateX(20deg)';
+
+    // Transition based on amount
     setTimeout(() => {
-        showScreen(`date-screen-${guyNumber}`);
-    }, 300);
+        if (amount < 5) {
+            showScene('scene-next-day-sad');
+        } else {
+            showScene('scene-next-day-happy');
+        }
+    }, 800);
 }
 
-// Answer the date question
-function answerDate(guyNumber, answer) {
-    // Add exit animation
-    const currentScreenElement = document.getElementById(currentScreen);
-    currentScreenElement.style.opacity = '0';
-    currentScreenElement.style.transform = 'scale(0.95)';
+// Ask why she's crying
+function askWhyCrying() {
+    const currentSceneElement = document.getElementById(currentScene);
+    currentSceneElement.style.opacity = '0';
+    currentSceneElement.style.transform = 'translateZ(-300px) scale(0.8)';
 
-    // Determine which result screen to show
     setTimeout(() => {
-        if (answer) {
-            showScreen(`result-screen-${guyNumber}-yes`);
-        } else {
-            showScreen('result-screen-no');
+        showScene('scene-explanation');
+
+        // Calculate how much more she needs
+        const moneyEarned = cupsPurchased * 2;
+        const bicyclePrice = 60; // Assuming the bicycle costs $60
+        const moneyNeeded = bicyclePrice - moneyEarned;
+
+        const moneyNeededElement = document.getElementById('money-needed');
+        if (moneyNeededElement) {
+            moneyNeededElement.textContent = Math.max(0, moneyNeeded);
         }
-    }, 300);
+    }, 600);
+}
+
+// Walk away
+function walkAway() {
+    const currentSceneElement = document.getElementById(currentScene);
+    currentSceneElement.style.opacity = '0';
+    currentSceneElement.style.transform = 'translateZ(-300px) translateX(-100px)';
+
+    setTimeout(() => {
+        showScene('scene-walkaway');
+    }, 600);
 }
 
 // Restart the experience
 function restart() {
-    // Add exit animation
-    const currentScreenElement = document.getElementById(currentScreen);
-    currentScreenElement.style.opacity = '0';
-    currentScreenElement.style.transform = 'scale(0.95)';
+    const currentSceneElement = document.getElementById(currentScene);
+    currentSceneElement.style.opacity = '0';
+    currentSceneElement.style.transform = 'translateZ(-300px) scale(0.9)';
 
-    // Reset to selection screen
     setTimeout(() => {
-        // Reset all screens
-        const screens = document.querySelectorAll('.screen');
-        screens.forEach(screen => {
-            screen.style.opacity = '';
-            screen.style.transform = '';
+        // Reset all scenes
+        const scenes = document.querySelectorAll('.scene');
+        scenes.forEach(scene => {
+            scene.style.opacity = '';
+            scene.style.transform = '';
         });
 
-        showScreen('selection-screen');
-    }, 300);
+        cupsPurchased = 0;
+        showScene('scene-lemonade-stand');
+    }, 600);
 }
 
-// Add interactive animations
-function addAnimations() {
-    // Card hover effects
-    const guyCards = document.querySelectorAll('.guy-card');
-    guyCards.forEach(card => {
-        card.addEventListener('mouseenter', () => {
-            card.style.transform = 'translateY(-10px) scale(1.02)';
-        });
+// Create confetti particles for celebration
+function createConfettiParticles() {
+    const happyScene = document.getElementById('scene-next-day-happy');
+    if (!happyScene) return;
 
-        card.addEventListener('mouseleave', () => {
-            card.style.transform = '';
-        });
-    });
+    const confettiContainer = happyScene.querySelector('.confetti');
+    if (!confettiContainer) return;
 
-    // Button hover effects with ripple
-    const buttons = document.querySelectorAll('button');
-    buttons.forEach(button => {
-        button.addEventListener('click', function(e) {
-            // Create ripple effect
-            const ripple = document.createElement('span');
-            const rect = this.getBoundingClientRect();
-            const size = Math.max(rect.width, rect.height);
-            const x = e.clientX - rect.left - size / 2;
-            const y = e.clientY - rect.top - size / 2;
-
-            ripple.style.width = ripple.style.height = size + 'px';
-            ripple.style.left = x + 'px';
-            ripple.style.top = y + 'px';
-            ripple.classList.add('ripple');
-
-            // Add ripple styles
-            ripple.style.position = 'absolute';
-            ripple.style.borderRadius = '50%';
-            ripple.style.background = 'rgba(255, 255, 255, 0.6)';
-            ripple.style.transform = 'scale(0)';
-            ripple.style.animation = 'ripple-animation 0.6s ease-out';
-            ripple.style.pointerEvents = 'none';
-
-            this.style.position = 'relative';
-            this.style.overflow = 'hidden';
-            this.appendChild(ripple);
-
-            setTimeout(() => {
-                ripple.remove();
-            }, 600);
-        });
-    });
-
-    // Add CSS for ripple animation
-    if (!document.getElementById('ripple-style')) {
-        const style = document.createElement('style');
-        style.id = 'ripple-style';
-        style.textContent = `
-            @keyframes ripple-animation {
-                to {
-                    transform: scale(4);
-                    opacity: 0;
-                }
-            }
-        `;
-        document.head.appendChild(style);
-    }
-}
-
-// Keyboard navigation
-document.addEventListener('keydown', (e) => {
-    // ESC key to restart
-    if (e.key === 'Escape') {
-        if (currentScreen !== 'selection-screen') {
-            restart();
-        }
-    }
-
-    // Number keys (1-3) to select guys on selection screen
-    if (currentScreen === 'selection-screen') {
-        if (e.key === '1') {
-            chooseGuy(1);
-        } else if (e.key === '2') {
-            chooseGuy(2);
-        } else if (e.key === '3') {
-            chooseGuy(3);
-        }
-    }
-
-    // Y/N keys on date screens
-    if (currentScreen.startsWith('date-screen-')) {
-        const guyNumber = parseInt(currentScreen.split('-')[2]);
-        if (e.key === 'y' || e.key === 'Y') {
-            answerDate(guyNumber, true);
-        } else if (e.key === 'n' || e.key === 'N') {
-            answerDate(guyNumber, false);
-        }
-    }
-
-    // R key to restart on result screens
-    if (currentScreen.startsWith('result-screen-')) {
-        if (e.key === 'r' || e.key === 'R') {
-            restart();
-        }
-    }
-});
-
-// Add floating hearts effect on result screens
-function createFloatingHearts() {
-    const resultScreens = document.querySelectorAll('.result-screen');
-
-    resultScreens.forEach(screen => {
-        screen.addEventListener('transitionend', function(e) {
-            if (this.classList.contains('active') && !this.id.includes('no')) {
-                for (let i = 0; i < 15; i++) {
+    // Create confetti when happy scene becomes active
+    const observer = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+            if (mutation.target.classList.contains('active')) {
+                // Generate confetti
+                for (let i = 0; i < 50; i++) {
                     setTimeout(() => {
-                        createHeart(this);
-                    }, i * 200);
+                        createConfetti(confettiContainer);
+                    }, i * 100);
                 }
             }
         });
     });
+
+    observer.observe(happyScene, { attributes: true, attributeFilter: ['class'] });
+}
+
+function createConfetti(container) {
+    const confetti = document.createElement('div');
+    const colors = ['#FF6B6B', '#4ECDC4', '#45B7D1', '#FFA07A', '#98D8C8', '#FFD93D', '#6BCF7F'];
+    const randomColor = colors[Math.floor(Math.random() * colors.length)];
+    const shapes = ['▪', '▴', '●', '★', '♥'];
+    const randomShape = shapes[Math.floor(Math.random() * shapes.length)];
+
+    confetti.textContent = randomShape;
+    confetti.style.position = 'fixed';
+    confetti.style.fontSize = Math.random() * 20 + 15 + 'px';
+    confetti.style.left = Math.random() * 100 + '%';
+    confetti.style.top = '-50px';
+    confetti.style.color = randomColor;
+    confetti.style.opacity = '1';
+    confetti.style.pointerEvents = 'none';
+    confetti.style.zIndex = '1001';
+    confetti.style.animation = `confettiFall ${Math.random() * 3 + 3}s ease-out forwards`;
+
+    container.appendChild(confetti);
+
+    setTimeout(() => {
+        confetti.remove();
+    }, 6000);
+}
+
+// Add confetti animation styles
+if (!document.getElementById('confetti-style')) {
+    const style = document.createElement('style');
+    style.id = 'confetti-style';
+    style.textContent = `
+        @keyframes confettiFall {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+    `;
+    document.head.appendChild(style);
+}
+
+// Create sparkles for happy scene
+function createSparkles() {
+    const happyScene = document.getElementById('scene-next-day-happy');
+    if (!happyScene) return;
+
+    const sparklesContainer = happyScene.querySelector('.sparkles');
+    if (!sparklesContainer) return;
+
+    // Create sparkles when happy scene becomes active
+    const observer = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+            if (mutation.target.classList.contains('active')) {
+                // Generate sparkles
+                for (let i = 0; i < 30; i++) {
+                    setTimeout(() => {
+                        createSparkle(sparklesContainer);
+                    }, i * 150);
+                }
+
+                // Keep creating sparkles periodically
+                const sparkleInterval = setInterval(() => {
+                    if (currentScene === 'scene-next-day-happy') {
+                        createSparkle(sparklesContainer);
+                    } else {
+                        clearInterval(sparkleInterval);
+                    }
+                }, 500);
+            }
+        });
+    });
+
+    observer.observe(happyScene, { attributes: true, attributeFilter: ['class'] });
+}
+
+function createSparkle(container) {
+    const sparkle = document.createElement('div');
+    const sparkles = ['✨', '⭐', '💫', '🌟'];
+    const randomSparkle = sparkles[Math.floor(Math.random() * sparkles.length)];
+
+    sparkle.textContent = randomSparkle;
+    sparkle.style.position = 'fixed';
+    sparkle.style.fontSize = Math.random() * 30 + 20 + 'px';
+    sparkle.style.left = Math.random() * 100 + '%';
+    sparkle.style.top = Math.random() * 100 + '%';
+    sparkle.style.opacity = '0';
+    sparkle.style.pointerEvents = 'none';
+    sparkle.style.zIndex = '999';
+    sparkle.style.animation = `sparkleFloat ${Math.random() * 2 + 2}s ease-in-out, sparkleFade ${Math.random() * 2 + 1}s ease-in-out`;
+
+    container.appendChild(sparkle);
+
+    setTimeout(() => {
+        sparkle.remove();
+    }, 4000);
+}
+
+// Add sparkle animation styles
+if (!document.getElementById('sparkle-style')) {
+    const style = document.createElement('style');
+    style.id = 'sparkle-style';
+    style.textContent = `
+        @keyframes sparkleFloat {
+            0% {
+                transform: translate(0, 0) rotate(0deg) scale(1);
+            }
+            25% {
+                transform: translate(20px, -20px) rotate(90deg) scale(1.2);
+            }
+            50% {
+                transform: translate(-10px, -40px) rotate(180deg) scale(0.8);
+            }
+            75% {
+                transform: translate(30px, -30px) rotate(270deg) scale(1.1);
+            }
+            100% {
+                transform: translate(0, -50px) rotate(360deg) scale(1);
+            }
+        }
+
+        @keyframes sparkleFade {
+            0%, 100% {
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+        }
+    `;
+    document.head.appendChild(style);
+}
+
+// Create floating hearts for happy ending
+function createFloatingHearts() {
+    const happyScene = document.getElementById('scene-next-day-happy');
+    if (!happyScene) return;
+
+    const heartsContainer = happyScene.querySelector('.hearts-floating');
+    if (!heartsContainer) return;
+
+    const observer = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+            if (mutation.target.classList.contains('active')) {
+                for (let i = 0; i < 20; i++) {
+                    setTimeout(() => {
+                        createHeart(heartsContainer);
+                    }, i * 300);
+                }
+
+                const heartInterval = setInterval(() => {
+                    if (currentScene === 'scene-next-day-happy') {
+                        createHeart(heartsContainer);
+                    } else {
+                        clearInterval(heartInterval);
+                    }
+                }, 1000);
+            }
+        });
+    });
+
+    observer.observe(happyScene, { attributes: true, attributeFilter: ['class'] });
 }
 
 function createHeart(container) {
@@ -204,28 +297,32 @@ function createHeart(container) {
     heart.style.bottom = '-50px';
     heart.style.opacity = '0.8';
     heart.style.pointerEvents = 'none';
-    heart.style.zIndex = '1000';
-    heart.style.animation = `float-up ${Math.random() * 3 + 3}s ease-in-out`;
+    heart.style.zIndex = '998';
+    heart.style.animation = `heartFloat ${Math.random() * 4 + 4}s ease-in-out`;
 
     container.appendChild(heart);
 
     setTimeout(() => {
         heart.remove();
-    }, 6000);
+    }, 8000);
 }
 
-// Add floating animation for hearts
-if (!document.getElementById('float-style')) {
+// Add heart animation styles
+if (!document.getElementById('heart-style')) {
     const style = document.createElement('style');
-    style.id = 'float-style';
+    style.id = 'heart-style';
     style.textContent = `
-        @keyframes float-up {
+        @keyframes heartFloat {
             0% {
-                transform: translateY(0) rotate(0deg);
+                transform: translateY(0) rotate(0deg) scale(1);
                 opacity: 0.8;
             }
+            50% {
+                transform: translateY(-50vh) rotate(180deg) scale(1.2);
+                opacity: 1;
+            }
             100% {
-                transform: translateY(-100vh) rotate(360deg);
+                transform: translateY(-100vh) rotate(360deg) scale(0.8);
                 opacity: 0;
             }
         }
@@ -236,101 +333,60 @@ if (!document.getElementById('float-style')) {
 // Initialize floating hearts
 createFloatingHearts();
 
-// Create ambient particles for selection screen
-function createParticles() {
-    const selectionScreen = document.getElementById('selection-screen');
-
-    // Create 30 floating particles
-    for (let i = 0; i < 30; i++) {
-        setTimeout(() => {
-            createParticle(selectionScreen);
-        }, i * 100);
+// Add keyboard navigation
+document.addEventListener('keydown', (e) => {
+    // ESC key to restart
+    if (e.key === 'Escape') {
+        if (currentScene !== 'scene-lemonade-stand') {
+            restart();
+        }
     }
 
-    // Keep creating particles periodically
-    setInterval(() => {
-        if (currentScreen === 'selection-screen') {
-            createParticle(selectionScreen);
+    // R key to restart on ending screens
+    if (currentScene.includes('scene-explanation') ||
+        currentScene.includes('scene-walkaway') ||
+        currentScene.includes('scene-next-day-happy')) {
+        if (e.key === 'r' || e.key === 'R') {
+            restart();
         }
-    }, 3000);
-}
+    }
 
-function createParticle(container) {
-    const particle = document.createElement('div');
-    const particles = ['✨', '💕', '💖', '⭐', '💫', '🌟'];
-    const randomParticle = particles[Math.floor(Math.random() * particles.length)];
-
-    particle.textContent = randomParticle;
-    particle.style.position = 'fixed';
-    particle.style.fontSize = Math.random() * 20 + 10 + 'px';
-    particle.style.left = Math.random() * 100 + '%';
-    particle.style.top = Math.random() * 100 + '%';
-    particle.style.opacity = '0';
-    particle.style.pointerEvents = 'none';
-    particle.style.zIndex = '1';
-    particle.style.animation = `particleFloat ${Math.random() * 5 + 5}s ease-in-out, particleFade ${Math.random() * 3 + 2}s ease-in-out`;
-
-    container.appendChild(particle);
-
-    setTimeout(() => {
-        particle.remove();
-    }, 8000);
-}
-
-// Add particle animation styles
-if (!document.getElementById('particle-style')) {
-    const style = document.createElement('style');
-    style.id = 'particle-style';
-    style.textContent = `
-        @keyframes particleFloat {
-            0% {
-                transform: translate(0, 0) rotate(0deg);
-            }
-            25% {
-                transform: translate(20px, -30px) rotate(90deg);
-            }
-            50% {
-                transform: translate(-20px, -60px) rotate(180deg);
-            }
-            75% {
-                transform: translate(30px, -90px) rotate(270deg);
-            }
-            100% {
-                transform: translate(0, -120px) rotate(360deg);
-            }
+    // Number keys (0-9) to select cups on lemonade stand screen
+    if (currentScene === 'scene-lemonade-stand') {
+        const key = parseInt(e.key);
+        if (!isNaN(key) && key >= 0 && key <= 9) {
+            selectCups(key);
         }
+    }
 
-        @keyframes particleFade {
-            0%, 100% {
-                opacity: 0;
-            }
-            50% {
-                opacity: 0.8;
-            }
+    // Y/N keys on sad scene for asking
+    if (currentScene === 'scene-next-day-sad') {
+        if (e.key === 'y' || e.key === 'Y') {
+            askWhyCrying();
+        } else if (e.key === 'n' || e.key === 'N') {
+            walkAway();
         }
-    `;
-    document.head.appendChild(style);
-}
+    }
+});
 
-// Add smooth scrolling
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            target.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
-        }
+// Add mouse parallax effect for 3D depth
+document.addEventListener('mousemove', (e) => {
+    const scenes = document.querySelectorAll('.scene.active .scene-3d-container');
+
+    scenes.forEach(scene => {
+        const xAxis = (window.innerWidth / 2 - e.pageX) / 50;
+        const yAxis = (window.innerHeight / 2 - e.pageY) / 50;
+
+        scene.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
     });
 });
 
 // Console easter egg
-console.log('%c💕 Welcome to Your Perfect Date! 💕', 'font-size: 24px; color: #f5576c; font-weight: bold;');
+console.log('%c🍋 Welcome to The Lemonade Stand! 🍋', 'font-size: 24px; color: #FFD700; font-weight: bold;');
 console.log('%cKeyboard shortcuts:', 'font-size: 16px; color: #667eea; font-weight: bold;');
-console.log('%c  • Press 1, 2, or 3 to choose a guy', 'font-size: 14px; color: #666;');
-console.log('%c  • Press Y or N to answer on dates', 'font-size: 14px; color: #666;');
+console.log('%c  • Press 0-9 to choose how many cups', 'font-size: 14px; color: #666;');
+console.log('%c  • Press Y to ask why (when applicable)', 'font-size: 14px; color: #666;');
+console.log('%c  • Press N to walk away (when applicable)', 'font-size: 14px; color: #666;');
 console.log('%c  • Press R to restart', 'font-size: 14px; color: #666;');
-console.log('%c  • Press ESC to go back to start', 'font-size: 14px; color: #666;');
-console.log('%c\nEnjoy your romantic adventure! ✨', 'font-size: 14px; color: #764ba2; font-style: italic;');
+console.log('%c  • Press ESC to restart anytime', 'font-size: 14px; color: #666;');
+console.log('%c\nRemember: Small acts of kindness can make big dreams come true! 💕', 'font-size: 14px; color: #00b894; font-style: italic;');

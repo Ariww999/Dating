@@ -3,269 +3,224 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Perfect Date - Interactive Romance</title>
+    <title>The Lemonade Stand - An Interactive Story</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Fredoka:wght@400;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Main Selection Screen -->
-    <div id="selection-screen" class="screen active">
-        <div class="container">
-            <h1 class="main-title">Choose Your Perfect Date</h1>
-            <p class="subtitle">Three amazing guys are waiting to meet you...</p>
+    <!-- Scene 1: Lemonade Stand -->
+    <div id="scene-lemonade-stand" class="scene active">
+        <div class="scene-3d-container">
+            <div class="sky-background"></div>
+            <div class="ground"></div>
 
-            <div class="guys-grid">
-                <!-- Guy 1: Cute & Muscular -->
-                <div class="guy-card" data-guy="1">
-                    <div class="guy-image guy1-img">
-                        <div class="guy-overlay">
-                            <div class="guy-traits">
-                                <span class="trait">💪 Muscular</span>
-                                <span class="trait">😊 Cute</span>
-                                <span class="trait">☕ Cafe Lover</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="guy-info">
-                        <h2 class="guy-name">Hiro</h2>
-                        <p class="guy-description">Gentle soul with a surprisingly strong physique. Loves deep conversations over coffee.</p>
-                        <button class="choose-btn" onclick="chooseGuy(1)">
-                            <span>Choose Hiro</span>
-                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                                <path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                        </button>
-                    </div>
+            <div class="lemonade-stand-3d">
+                <div class="stand-roof"></div>
+                <div class="stand-body">
+                    <div class="stand-sign">🍋 Fresh Lemonade! 🍋</div>
+                    <div class="price-tag">$2 per cup</div>
                 </div>
+                <div class="stand-table"></div>
+            </div>
 
-                <!-- Guy 2: Sporty & Tanned -->
-                <div class="guy-card" data-guy="2">
-                    <div class="guy-image guy2-img">
-                        <div class="guy-overlay">
-                            <div class="guy-traits">
-                                <span class="trait">🏐 Athletic</span>
-                                <span class="trait">☀️ Tanned</span>
-                                <span class="trait">🏖️ Beach Enthusiast</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="guy-info">
-                        <h2 class="guy-name">Jin</h2>
-                        <p class="guy-description">Energetic and outdoorsy. His smile is as bright as the summer sun.</p>
-                        <button class="choose-btn" onclick="chooseGuy(2)">
-                            <span>Choose Jin</span>
-                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                                <path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                        </button>
-                    </div>
+            <div class="little-girl-character happy">
+                <div class="girl-head">
+                    <div class="girl-face">😊</div>
+                    <div class="girl-hair"></div>
                 </div>
+                <div class="girl-body"></div>
+            </div>
 
-                <!-- Guy 3: Gamer with Glasses -->
-                <div class="guy-card" data-guy="3">
-                    <div class="guy-image guy3-img">
-                        <div class="guy-overlay">
-                            <div class="guy-traits">
-                                <span class="trait">🎮 Gamer</span>
-                                <span class="trait">👓 Intellectual</span>
-                                <span class="trait">🖥️ Tech Savvy</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="guy-info">
-                        <h2 class="guy-name">Kai</h2>
-                        <p class="guy-description">Sweet and nerdy. Gets shy easily but has a heart of gold.</p>
-                        <button class="choose-btn" onclick="chooseGuy(3)">
-                            <span>Choose Kai</span>
-                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                                <path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                        </button>
-                    </div>
+            <div class="dialogue-box appear">
+                <p class="girl-speech">"Hello! Would you like some fresh lemonade?"</p>
+                <p class="girl-speech-sub">"I'm saving up for a bicycle! 🚲"</p>
+            </div>
+
+            <div class="purchase-panel">
+                <h2 class="purchase-title">How many cups would you like?</h2>
+                <div class="cup-selector">
+                    <button class="cup-btn" onclick="selectCups(0)">
+                        <span class="cup-count">0</span>
+                        <span class="cup-label">No thanks</span>
+                    </button>
+                    <button class="cup-btn" onclick="selectCups(1)">
+                        <span class="cup-icon">🥤</span>
+                        <span class="cup-count">1</span>
+                        <span class="cup-price">$2</span>
+                    </button>
+                    <button class="cup-btn" onclick="selectCups(2)">
+                        <span class="cup-icon">🥤🥤</span>
+                        <span class="cup-count">2</span>
+                        <span class="cup-price">$4</span>
+                    </button>
+                    <button class="cup-btn" onclick="selectCups(3)">
+                        <span class="cup-icon">🥤🥤🥤</span>
+                        <span class="cup-count">3</span>
+                        <span class="cup-price">$6</span>
+                    </button>
+                    <button class="cup-btn" onclick="selectCups(4)">
+                        <span class="cup-icon">🥤🥤🥤🥤</span>
+                        <span class="cup-count">4</span>
+                        <span class="cup-price">$8</span>
+                    </button>
+                    <button class="cup-btn highlight" onclick="selectCups(5)">
+                        <span class="cup-icon">🥤🥤🥤🥤🥤</span>
+                        <span class="cup-count">5</span>
+                        <span class="cup-price">$10</span>
+                    </button>
+                    <button class="cup-btn highlight" onclick="selectCups(7)">
+                        <span class="cup-icon">🥤✨</span>
+                        <span class="cup-count">7</span>
+                        <span class="cup-price">$14</span>
+                    </button>
+                    <button class="cup-btn highlight" onclick="selectCups(10)">
+                        <span class="cup-icon">🥤🎉</span>
+                        <span class="cup-count">10</span>
+                        <span class="cup-price">$20</span>
+                    </button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Date Screen - Guy 1: Aesthetic Cafe -->
-    <div id="date-screen-1" class="screen date-screen">
-        <div class="date-background cafe-bg">
-            <div class="date-content">
-                <div class="date-scene">
-                    <div class="guy-portrait guy1-portrait">
-                        <div class="speech-bubble">
-                            <p>"I'm really glad you chose to come here with me. This place has the best ambiance in the city."</p>
-                            <p class="gentle-text">"You look beautiful today..."</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="date-actions">
-                    <h3 class="question">Do you like me?</h3>
-                    <div class="action-buttons">
-                        <button class="action-btn yes-btn" onclick="answerDate(1, true)">
-                            <span>❤️ Yes</span>
-                        </button>
-                        <button class="action-btn no-btn" onclick="answerDate(1, false)">
-                            <span>💔 No</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    <!-- Scene 2a: Next Day - Sad (bought < 5) -->
+    <div id="scene-next-day-sad" class="scene">
+        <div class="scene-3d-container">
+            <div class="sky-background cloudy"></div>
+            <div class="ground"></div>
 
-    <!-- Date Screen - Guy 2: Beach Volleyball -->
-    <div id="date-screen-2" class="screen date-screen">
-        <div class="date-background beach-bg">
-            <div class="date-content">
-                <div class="date-scene">
-                    <div class="guy-portrait guy2-portrait">
-                        <div class="speech-bubble">
-                            <p>"That was an amazing game! You've got some serious skills!"</p>
-                            <p class="energetic-text">"I love your competitive spirit!"</p>
-                        </div>
-                    </div>
+            <div class="little-girl-character sad walking">
+                <div class="girl-head">
+                    <div class="girl-face">😢</div>
+                    <div class="girl-hair"></div>
+                    <div class="tears">💧💧</div>
                 </div>
-                <div class="date-actions">
-                    <h3 class="question">Do you like me?</h3>
-                    <div class="action-buttons">
-                        <button class="action-btn yes-btn" onclick="answerDate(2, true)">
-                            <span>❤️ Yes</span>
-                        </button>
-                        <button class="action-btn no-btn" onclick="answerDate(2, false)">
-                            <span>💔 No</span>
-                        </button>
-                    </div>
-                </div>
+                <div class="girl-body"></div>
             </div>
-        </div>
-    </div>
 
-    <!-- Date Screen - Guy 3: Internet Cafe Gaming -->
-    <div id="date-screen-3" class="screen date-screen">
-        <div class="date-background gaming-bg">
-            <div class="date-content">
-                <div class="date-scene">
-                    <div class="guy-portrait guy3-portrait">
-                        <div class="speech-bubble">
-                            <p>"W-wow, you're really good at this game..."</p>
-                            <p class="shy-text">"I haven't had this much fun in a while..."</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="date-actions">
-                    <h3 class="question">Do you like me?</h3>
-                    <div class="action-buttons">
-                        <button class="action-btn yes-btn" onclick="answerDate(3, true)">
-                            <span>❤️ Yes</span>
-                        </button>
-                        <button class="action-btn no-btn" onclick="answerDate(3, false)">
-                            <span>💔 No</span>
-                        </button>
-                    </div>
-                </div>
+            <div class="dialogue-box appear delayed">
+                <p class="narrator-text">The next day, you see the little girl walking by...</p>
+                <p class="narrator-text">She has tears in her eyes. 😢</p>
             </div>
-        </div>
-    </div>
 
-    <!-- Result Screen - Guy 1: Yes -->
-    <div id="result-screen-1-yes" class="screen result-screen">
-        <div class="result-background cafe-result-bg">
-            <div class="result-content">
-                <div class="result-scene">
-                    <div class="result-portrait guy1-result">
-                        <div class="heart-effect">💕</div>
-                    </div>
-                    <div class="result-text">
-                        <h2 class="result-title">A Beautiful Connection</h2>
-                        <p class="result-description">Hiro gently takes your hand, his strong fingers intertwining with yours.</p>
-                        <p class="love-confession">"I love you..."</p>
-                        <p class="result-note">His voice is tender and sincere, his eyes full of warmth.</p>
-                    </div>
-                </div>
-                <button class="restart-btn" onclick="restart()">
-                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                        <path d="M2.5 10C2.5 5.85786 5.85786 2.5 10 2.5C14.1421 2.5 17.5 5.85786 17.5 10C17.5 14.1421 14.1421 17.5 10 17.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                        <path d="M6 17L2 17L2 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                    <span>Start Over</span>
+            <div class="action-panel">
+                <button class="action-button" onclick="askWhyCrying()">
+                    <span class="btn-icon">💭</span>
+                    <span class="btn-text">Ask her what's wrong</span>
+                </button>
+                <button class="action-button secondary" onclick="walkAway()">
+                    <span class="btn-icon">🚶</span>
+                    <span class="btn-text">Walk away</span>
                 </button>
             </div>
         </div>
     </div>
 
-    <!-- Result Screen - Guy 2: Yes -->
-    <div id="result-screen-2-yes" class="screen result-screen">
-        <div class="result-background beach-result-bg">
-            <div class="result-content">
-                <div class="result-scene">
-                    <div class="result-portrait guy2-result">
-                        <div class="heart-effect">💕</div>
-                    </div>
-                    <div class="result-text">
-                        <h2 class="result-title">The Journey Home</h2>
-                        <p class="result-description">Jin's face lights up with joy. He offers his hand with a bright smile.</p>
-                        <p class="love-confession">"Let me walk you home..."</p>
-                        <p class="result-note">The sunset paints the sky as you walk together along the shore.</p>
-                    </div>
+    <!-- Scene 2a-explanation: Girl explains -->
+    <div id="scene-explanation" class="scene">
+        <div class="scene-3d-container">
+            <div class="sky-background cloudy"></div>
+            <div class="ground"></div>
+
+            <div class="little-girl-character sad">
+                <div class="girl-head">
+                    <div class="girl-face">😭</div>
+                    <div class="girl-hair"></div>
+                    <div class="tears">💧💧</div>
                 </div>
-                <button class="restart-btn" onclick="restart()">
-                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                        <path d="M2.5 10C2.5 5.85786 5.85786 2.5 10 2.5C14.1421 2.5 17.5 5.85786 17.5 10C17.5 14.1421 14.1421 17.5 10 17.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                        <path d="M6 17L2 17L2 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                    <span>Start Over</span>
+                <div class="girl-body"></div>
+            </div>
+
+            <div class="dialogue-box large appear">
+                <p class="girl-speech">"I... I didn't make enough money yesterday..."</p>
+                <p class="girl-speech">"I was saving up for a bicycle 🚲"</p>
+                <p class="girl-speech emotional">"But I still need $<span id="money-needed">50</span> more..."</p>
+                <p class="girl-speech-sub">"I guess I'll have to try again tomorrow..."</p>
+            </div>
+
+            <div class="emotional-scene">
+                <div class="broken-dream">
+                    <div class="dream-bicycle">🚲</div>
+                    <div class="dream-fade"></div>
+                </div>
+            </div>
+
+            <div class="action-panel single">
+                <button class="restart-button" onclick="restart()">
+                    <span class="btn-icon">🔄</span>
+                    <span class="btn-text">Start Over - Make a Different Choice</span>
                 </button>
             </div>
         </div>
     </div>
 
-    <!-- Result Screen - Guy 3: Yes -->
-    <div id="result-screen-3-yes" class="screen result-screen">
-        <div class="result-background gaming-result-bg">
-            <div class="result-content">
-                <div class="result-scene">
-                    <div class="result-portrait guy3-result">
-                        <div class="heart-effect">💕</div>
-                    </div>
-                    <div class="result-text">
-                        <h2 class="result-title">A Shy Confession</h2>
-                        <p class="result-description">Kai's cheeks turn a deep shade of pink. He looks down, adjusting his glasses nervously.</p>
-                        <p class="love-confession">"R-really? I... I'm so happy..."</p>
-                        <p class="result-note">He gives you the sweetest, most bashful smile you've ever seen.</p>
-                    </div>
+    <!-- Scene 2a-walkaway: Walked away -->
+    <div id="scene-walkaway" class="scene">
+        <div class="scene-3d-container">
+            <div class="sky-background cloudy"></div>
+            <div class="ground"></div>
+
+            <div class="little-girl-character sad distant">
+                <div class="girl-head">
+                    <div class="girl-face">😢</div>
+                    <div class="girl-hair"></div>
                 </div>
-                <button class="restart-btn" onclick="restart()">
-                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                        <path d="M2.5 10C2.5 5.85786 5.85786 2.5 10 2.5C14.1421 2.5 17.5 5.85786 17.5 10C17.5 14.1421 14.1421 17.5 10 17.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                        <path d="M6 17L2 17L2 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                    <span>Start Over</span>
+                <div class="girl-body"></div>
+            </div>
+
+            <div class="dialogue-box appear">
+                <p class="narrator-text">You walked away...</p>
+                <p class="narrator-text">Sometimes small acts of kindness can make a big difference.</p>
+            </div>
+
+            <div class="action-panel single">
+                <button class="restart-button" onclick="restart()">
+                    <span class="btn-icon">🔄</span>
+                    <span class="btn-text">Start Over</span>
                 </button>
             </div>
         </div>
     </div>
 
-    <!-- Result Screen - No (Generic for all) -->
-    <div id="result-screen-no" class="screen result-screen">
-        <div class="result-background sad-bg">
-            <div class="result-content">
-                <div class="result-scene">
-                    <div class="result-text sad-result">
-                        <h2 class="result-title">Perhaps Not Meant To Be</h2>
-                        <p class="result-description">He looks disappointed but understanding.</p>
-                        <p class="love-confession">"I understand... Thank you for being honest."</p>
-                        <p class="result-note">Maybe someone else is waiting for you...</p>
-                    </div>
+    <!-- Scene 2b: Next Day - Happy (bought >= 5) -->
+    <div id="scene-next-day-happy" class="scene">
+        <div class="scene-3d-container">
+            <div class="sky-background sunny"></div>
+            <div class="ground"></div>
+            <div class="sparkles"></div>
+
+            <div class="little-girl-character happy excited">
+                <div class="girl-head">
+                    <div class="girl-face">😊</div>
+                    <div class="girl-hair"></div>
+                    <div class="joy-sparkles">✨✨✨</div>
                 </div>
-                <button class="restart-btn" onclick="restart()">
-                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                        <path d="M2.5 10C2.5 5.85786 5.85786 2.5 10 2.5C14.1421 2.5 17.5 5.85786 17.5 10C17.5 14.1421 14.1421 17.5 10 17.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                        <path d="M6 17L2 17L2 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                    <span>Try Again</span>
+                <div class="girl-body"></div>
+            </div>
+
+            <div class="bicycle-3d">
+                <div class="bicycle-frame">🚲</div>
+                <div class="bicycle-shine"></div>
+            </div>
+
+            <div class="dialogue-box large appear celebration">
+                <p class="girl-speech excited">"Thank you so much!"</p>
+                <p class="girl-speech">"Because of your kindness, I was able to get my bicycle! 🎉"</p>
+                <p class="girl-speech emotional happy">"You helped make my dream come true!"</p>
+                <p class="girl-speech-sub">"I'll never forget your generosity! 💕"</p>
+            </div>
+
+            <div class="celebration-effects">
+                <div class="confetti"></div>
+                <div class="hearts-floating"></div>
+            </div>
+
+            <div class="action-panel single">
+                <button class="restart-button success" onclick="restart()">
+                    <span class="btn-icon">🔄</span>
+                    <span class="btn-text">Experience the Story Again</span>
                 </button>
             </div>
         </div>
