@@ -129,52 +129,39 @@ body {
     overflow: hidden;
 }
 
-/* Guy 1: Cute & Muscular */
-.guy1-img {
-    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-    position: relative;
+.guy-image::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to bottom, transparent 40%, rgba(0, 0, 0, 0.3) 100%);
+    pointer-events: none;
 }
 
-.guy1-img::before {
-    content: '💪😊';
-    position: absolute;
-    font-size: 120px;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    opacity: 0.3;
+/* Guy 1: Cute & Muscular */
+.guy1-img {
+    background-image: url('Guy1.jfif');
+    background-size: cover;
+    background-position: center;
+    position: relative;
 }
 
 /* Guy 2: Sporty & Tanned */
 .guy2-img {
-    background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+    background-image: url('Guy2.jfif');
+    background-size: cover;
+    background-position: center;
     position: relative;
-}
-
-.guy2-img::before {
-    content: '🏐☀️';
-    position: absolute;
-    font-size: 120px;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    opacity: 0.3;
 }
 
 /* Guy 3: Gamer with Glasses */
 .guy3-img {
-    background: linear-gradient(135deg, #30cfd0 0%, #330867 100%);
+    background-image: url('Guy3.jfif');
+    background-size: cover;
+    background-position: center;
     position: relative;
-}
-
-.guy3-img::before {
-    content: '🎮👓';
-    position: absolute;
-    font-size: 120px;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    opacity: 0.3;
 }
 
 .guy-overlay {
@@ -352,30 +339,33 @@ body {
 
 .guy-portrait {
     text-align: center;
+    position: relative;
+}
+
+.guy-portrait::before {
+    content: '';
+    display: block;
+    width: 200px;
+    height: 200px;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+    background-size: cover;
+    background-position: center;
+    border: 5px solid #f5f7fa;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    animation: bounce 2s ease-in-out infinite;
 }
 
 .guy1-portrait::before {
-    content: '💪😊';
-    font-size: 120px;
-    display: block;
-    margin-bottom: 20px;
-    animation: bounce 2s ease-in-out infinite;
+    background-image: url('Guy1.jfif');
 }
 
 .guy2-portrait::before {
-    content: '🏐😄';
-    font-size: 120px;
-    display: block;
-    margin-bottom: 20px;
-    animation: bounce 2s ease-in-out infinite;
+    background-image: url('Guy2.jfif');
 }
 
 .guy3-portrait::before {
-    content: '🎮👓';
-    font-size: 120px;
-    display: block;
-    margin-bottom: 20px;
-    animation: bounce 2s ease-in-out infinite;
+    background-image: url('Guy3.jfif');
 }
 
 @keyframes bounce {
@@ -563,22 +553,29 @@ body {
     margin-bottom: 30px;
 }
 
-.guy1-result::before {
-    content: '💪😊🤝';
-    font-size: 100px;
+.result-portrait::before {
+    content: '';
     display: block;
+    width: 180px;
+    height: 180px;
+    margin: 0 auto;
+    border-radius: 50%;
+    background-size: cover;
+    background-position: center;
+    border: 5px solid #f5f7fa;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+}
+
+.guy1-result::before {
+    background-image: url('Guy1.jfif');
 }
 
 .guy2-result::before {
-    content: '🏐😄🚶';
-    font-size: 100px;
-    display: block;
+    background-image: url('Guy2.jfif');
 }
 
 .guy3-result::before {
-    content: '🎮👓😊';
-    font-size: 100px;
-    display: block;
+    background-image: url('Guy3.jfif');
 }
 
 .heart-effect {
@@ -720,6 +717,16 @@ body {
 
     .love-confession {
         font-size: 1.5rem;
+    }
+
+    .guy-portrait::before {
+        width: 150px;
+        height: 150px;
+    }
+
+    .result-portrait::before {
+        width: 140px;
+        height: 140px;
     }
 }
 
