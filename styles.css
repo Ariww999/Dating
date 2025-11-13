@@ -56,7 +56,7 @@ body {
     width: 100%;
     height: 70%;
     background: linear-gradient(180deg, #87CEEB 0%, #B0E0E6 100%);
-    z-index: -2;
+    z-index: 1;
     animation: skyMove 30s ease-in-out infinite;
 }
 
@@ -135,7 +135,7 @@ body {
     background: linear-gradient(180deg, #90EE90 0%, #228B22 100%);
     transform: rotateX(60deg) translateZ(-100px);
     transform-origin: bottom;
-    z-index: -1;
+    z-index: 2;
     box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.2);
 }
 
@@ -159,10 +159,11 @@ body {
 .lemonade-stand-3d {
     position: absolute;
     left: 50%;
-    top: 40%;
+    top: 35%;
     transform: translateX(-50%) translateZ(100px);
     transform-style: preserve-3d;
     animation: standIntro 1.2s ease-out;
+    z-index: 5;
 }
 
 @keyframes standIntro {
@@ -263,10 +264,11 @@ body {
 .little-girl-character {
     position: absolute;
     left: 25%;
-    bottom: 25%;
+    bottom: 30%;
     transform-style: preserve-3d;
     animation: girlEnter 1.5s ease-out;
     transition: all 0.6s ease;
+    z-index: 6;
 }
 
 @keyframes girlEnter {
@@ -425,12 +427,12 @@ body {
 /* Dialogue Box 3D */
 .dialogue-box {
     position: absolute;
-    top: 15%;
+    top: 5%;
     left: 50%;
     transform: translateX(-50%) translateZ(80px);
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(10px);
-    padding: 30px 40px;
+    padding: 25px 35px;
     border-radius: 25px;
     max-width: 600px;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3),
@@ -438,6 +440,7 @@ body {
     transform-style: preserve-3d;
     opacity: 0;
     animation: dialogueAppear 0.8s ease-out 0.5s forwards;
+    z-index: 100;
 }
 
 .dialogue-box.delayed {
@@ -530,15 +533,17 @@ body {
 /* Purchase Panel */
 .purchase-panel {
     position: absolute;
-    bottom: 5%;
+    bottom: 2%;
     left: 50%;
     transform: translateX(-50%) translateZ(60px);
-    background: rgba(255, 255, 255, 0.9);
+    background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(10px);
-    padding: 30px;
+    padding: 20px 25px;
     border-radius: 30px;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
     animation: panelSlideUp 1s ease-out 0.8s backwards;
+    z-index: 200;
+    max-width: 95%;
 }
 
 @keyframes panelSlideUp {
@@ -554,25 +559,26 @@ body {
 
 .purchase-title {
     font-family: 'Fredoka', sans-serif;
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     color: #2d3436;
     text-align: center;
-    margin-bottom: 25px;
+    margin-bottom: 15px;
     font-weight: 700;
 }
 
 .cup-selector {
     display: flex;
-    gap: 15px;
+    gap: 10px;
     flex-wrap: wrap;
     justify-content: center;
+    max-width: 100%;
 }
 
 .cup-btn {
     background: linear-gradient(135deg, #74b9ff 0%, #a29bfe 100%);
     border: none;
-    border-radius: 20px;
-    padding: 20px 25px;
+    border-radius: 15px;
+    padding: 15px 20px;
     cursor: pointer;
     transform-style: preserve-3d;
     transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -581,8 +587,8 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 8px;
-    min-width: 100px;
+    gap: 5px;
+    min-width: 85px;
 }
 
 .cup-btn.highlight {
@@ -637,16 +643,20 @@ body {
 /* Action Panel */
 .action-panel {
     position: absolute;
-    bottom: 10%;
+    bottom: 8%;
     left: 50%;
     transform: translateX(-50%) translateZ(60px);
     display: flex;
     gap: 20px;
     animation: panelSlideUp 1s ease-out 2s backwards;
+    z-index: 200;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 90%;
 }
 
 .action-panel.single {
-    bottom: 15%;
+    bottom: 12%;
 }
 
 .action-button {
@@ -737,9 +747,10 @@ body {
 .bicycle-3d {
     position: absolute;
     right: 20%;
-    bottom: 25%;
+    bottom: 30%;
     transform-style: preserve-3d;
     animation: bicycleRide 1.5s ease-out;
+    z-index: 7;
 }
 
 @keyframes bicycleRide {
@@ -794,8 +805,9 @@ body {
 .emotional-scene {
     position: absolute;
     right: 15%;
-    top: 35%;
+    top: 30%;
     transform-style: preserve-3d;
+    z-index: 8;
 }
 
 .broken-dream {
@@ -869,27 +881,14 @@ body {
     }
 
     .lemonade-stand-3d {
-        transform: translateX(-50%) translateZ(50px) scale(0.8);
+        transform: translateX(-50%) translateZ(50px) scale(0.75);
+        top: 30%;
     }
 
     .dialogue-box {
         max-width: 500px;
-        padding: 25px 30px;
-    }
-
-    .cup-selector {
-        gap: 10px;
-    }
-
-    .cup-btn {
-        min-width: 80px;
-        padding: 15px 20px;
-    }
-}
-
-@media (max-width: 768px) {
-    .purchase-title {
-        font-size: 1.4rem;
+        padding: 20px 25px;
+        top: 3%;
     }
 
     .cup-selector {
@@ -897,35 +896,186 @@ body {
     }
 
     .cup-btn {
-        min-width: 70px;
+        min-width: 75px;
         padding: 12px 15px;
     }
 
+    .purchase-panel {
+        padding: 15px 20px;
+        bottom: 1%;
+    }
+
+    .little-girl-character {
+        left: 20%;
+        bottom: 25%;
+    }
+
+    .bicycle-3d {
+        right: 15%;
+        bottom: 25%;
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        perspective: 600px;
+    }
+
+    .purchase-title {
+        font-size: 1.2rem;
+        margin-bottom: 10px;
+    }
+
+    .cup-selector {
+        gap: 6px;
+    }
+
+    .cup-btn {
+        min-width: 65px;
+        padding: 10px 12px;
+    }
+
     .cup-count {
-        font-size: 1.4rem;
+        font-size: 1.3rem;
+    }
+
+    .cup-icon {
+        font-size: 1.2rem;
+    }
+
+    .cup-price {
+        font-size: 0.9rem;
     }
 
     .dialogue-box {
         max-width: 90%;
+        padding: 15px 20px;
+        top: 2%;
+    }
+
+    .dialogue-box.large {
         padding: 20px 25px;
     }
 
     .girl-speech {
-        font-size: 1.1rem;
+        font-size: 1rem;
+    }
+
+    .girl-speech.excited {
+        font-size: 1.3rem;
+    }
+
+    .girl-speech-sub {
+        font-size: 0.95rem;
+    }
+
+    .narrator-text {
+        font-size: 1rem;
     }
 
     .action-panel {
         flex-direction: column;
-        gap: 15px;
+        gap: 12px;
+        bottom: 5%;
+        max-width: 85%;
+    }
+
+    .action-panel.single {
+        bottom: 8%;
+    }
+
+    .action-button {
+        padding: 15px 30px;
+    }
+
+    .btn-text {
+        font-size: 1rem;
+    }
+
+    .restart-button {
+        padding: 18px 35px;
+    }
+
+    .lemonade-stand-3d {
+        transform: translateX(-50%) translateZ(30px) scale(0.6);
+        top: 25%;
     }
 
     .little-girl-character {
         left: 15%;
-        transform: scale(0.8);
+        bottom: 22%;
+        transform: scale(0.7);
     }
 
     .bicycle-3d {
         right: 10%;
+        bottom: 22%;
+        transform: scale(0.7);
+    }
+
+    .emotional-scene {
+        right: 10%;
+        top: 25%;
         transform: scale(0.8);
+    }
+
+    .purchase-panel {
+        bottom: 1%;
+        padding: 12px 15px;
+    }
+
+    .stand-sign {
+        font-size: 1.5rem;
+    }
+
+    .price-tag {
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .cup-btn {
+        min-width: 60px;
+        padding: 8px 10px;
+    }
+
+    .cup-count {
+        font-size: 1.2rem;
+    }
+
+    .cup-icon {
+        font-size: 1rem;
+    }
+
+    .cup-price {
+        font-size: 0.8rem;
+    }
+
+    .cup-selector {
+        gap: 5px;
+    }
+
+    .purchase-title {
+        font-size: 1.1rem;
+    }
+
+    .dialogue-box {
+        padding: 12px 15px;
+    }
+
+    .girl-speech {
+        font-size: 0.9rem;
+    }
+
+    .action-button {
+        padding: 12px 25px;
+    }
+
+    .btn-text {
+        font-size: 0.9rem;
+    }
+
+    .btn-icon {
+        font-size: 1.5rem;
     }
 }
