@@ -144,7 +144,7 @@ body {
 .guy1-img {
     background-image: url('Guy1.jfif');
     background-size: cover;
-    background-position: center;
+    background-position: center 30%;
     position: relative;
 }
 
@@ -152,7 +152,7 @@ body {
 .guy2-img {
     background-image: url('Guy2.jfif');
     background-size: cover;
-    background-position: center;
+    background-position: center 30%;
     position: relative;
 }
 
@@ -160,7 +160,7 @@ body {
 .guy3-img {
     background-image: url('Guy3.jfif');
     background-size: cover;
-    background-position: center;
+    background-position: center 30%;
     position: relative;
 }
 
@@ -350,7 +350,7 @@ body {
     margin: 0 auto 20px;
     border-radius: 50%;
     background-size: cover;
-    background-position: center;
+    background-position: center 30%;
     border: 5px solid #f5f7fa;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
     animation: bounce 2s ease-in-out infinite;
@@ -561,7 +561,7 @@ body {
     margin: 0 auto;
     border-radius: 50%;
     background-size: cover;
-    background-position: center;
+    background-position: center 30%;
     border: 5px solid #f5f7fa;
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
 }
